@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { example1, example2, example3 } from "./contentexample";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { fetchData, PutData } from "../services/methodes";
 
 const UpdateEmailScreen = () => {
   const { id } = useParams();
@@ -15,10 +15,7 @@ const UpdateEmailScreen = () => {
 
   const fillInputs = useCallback(async () => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URL_API}/email/${id}`
-      );
-
+      const data = await fetchData(`/email/${id}`);
       setEmail(data.email);
       setSubject(data.subject);
       setContent(data.content);
@@ -41,15 +38,16 @@ const UpdateEmailScreen = () => {
     }
   }, [role, company, selectexample]);
 
-  const handleCreateEmail = async (e) => {
+  const handleUpdateEmail = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${import.meta.env.VITE_URL_API}/update/email`, {
+      await PutData("/update/email", {
         id,
         email,
         subject,
         content,
       });
+
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -67,7 +65,7 @@ const UpdateEmailScreen = () => {
       </div>
       <form
         className="w-full flex flex-col items-center"
-        onSubmit={handleCreateEmail}
+        onSubmit={handleUpdateEmail}
       >
         {/* <div className="relative z-0 w-full mb-5 group">
           <input

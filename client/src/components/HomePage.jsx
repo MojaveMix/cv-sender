@@ -1,14 +1,16 @@
-import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faFileExcel,
   faFileImport,
   faFilePdf,
   faPaperPlane,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import Modal from "../common/Modals";
+import { fetchData, PostData } from "../services/methodes";
+import { PromptService } from "../services/prompt.service";
 const HomePage = () => {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
@@ -16,7 +18,7 @@ const HomePage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const showAllEmails = useCallback(async () => {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_URL_API}/all`);
+      const data = await fetchData("/all");
       setData(data);
     } catch (error) {
       console.error(error);
@@ -30,12 +32,11 @@ const HomePage = () => {
   const handleDelete = async (id) => {
     try {
       if (!id) return;
-
-      await axios.post(`${import.meta.env.VITE_URL_API}/delete`, {
-        id,
-      });
-
-      showAllEmails();
+      const check = confirm("Are you sure you went delete it ?");
+      if (check) {
+        await PostData("/delete", { id });
+        showAllEmails();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +45,7 @@ const HomePage = () => {
   const handleSendMail = async () => {
     try {
       setLoading(true);
-      await axios.post(`${import.meta.env.VITE_URL_API}/send-email`);
+      await PostData("/send-email");
     } catch (error) {
       console.error(error);
     } finally {
@@ -58,6 +59,15 @@ const HomePage = () => {
         <div className="text-center text-3xl font-semibold w-full ">
           All cover letter
         </div>
+
+        <button
+          type="button"
+          onClick={() => navigate("/upload/excel")}
+          className="bg-green-600 text-white p-1 rounded text-sm w-72 flex items-center justify-center gap-1.5 "
+        >
+          <FontAwesomeIcon icon={faFileExcel} className="w-4 h-4" />
+          Upload data excel
+        </button>
 
         <button
           type="button"

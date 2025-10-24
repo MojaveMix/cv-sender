@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useState, useRef, useCallback } from "react";
+import { PostData } from "../services/methodes";
 
 export default function UploadFileScreen() {
   const [file, setFile] = useState(null);
@@ -109,15 +109,12 @@ export default function UploadFileScreen() {
       const form = new FormData();
       console.log(file);
       form.append("file", file);
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_URL_API}/upload`,
-        form,
-        {
-          headers: {
-            "Content-Type": "application/pdf",
-          },
-        }
-      );
+
+      const data = await PostData("/upload", form, {
+        headers: {
+          "Content-Type": "application/pdf",
+        },
+      });
 
       if (!data) throw new Error("Upload failed");
 

@@ -4,6 +4,7 @@ const cors = require("cors");
 const multer = require("multer"); // For file uploads
 const path = require("path");
 const fs = require("fs");
+require("dotenv").config();
 
 const {
   showAllEmails,
@@ -15,6 +16,7 @@ const {
 } = require("./controllers/emails.controllers");
 const nodemailer = require("nodemailer");
 const { RequestQuery } = require("./controllers/services.controllers");
+const { fetchAiData } = require("./controllers/gimeni.controllers");
 
 app.use(express.json());
 app.use(cors());
@@ -63,6 +65,7 @@ app.get("/api/email/:id", showEmailsById);
 app.post("/api/create/email", InsertEmail);
 app.post("/api/delete", DeleteEmail);
 app.put("/api/update/email", UpdatetEmail);
+app.post("/api/test", fetchAiData);
 
 app.post("/api/send-email", async (req, res) => {
   // Fetch emails from database

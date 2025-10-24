@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { example1, example2, example3 } from "./contentexample";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { PostData } from "../services/methodes";
+import { PromptService } from "../services/prompt.service";
+import Spinner from "../common/Spinner";
 
 const FormEmailScreen = () => {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
+  const [loading, setLoading] = useState(false);
   const [role, setRole] = useState("");
   const [subject, setSubject] = useState("");
   const [content, setContent] = useState("");
@@ -24,7 +27,7 @@ const FormEmailScreen = () => {
   const handleCreateEmail = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${import.meta.env.VITE_URL_API}/create/email`, {
+      await PostData("/create/email", {
         email,
         subject,
         content,
@@ -156,30 +159,45 @@ const FormEmailScreen = () => {
               checked={selectexample === 3}
             />
           </div>
+          <button
+            type="button"
+            onClick={() => PromptService(company, role, setContent, setLoading)}
+            className="flex items-center gap-2 text-sm font-semibold text-[#017fe7]"
+          >
+            <img src="/img/ai.jpg" className="w-7 h-7" />
+            AI
+          </button>
         </div>
 
-        <div className="relative z-0 w-full mb-5 group mt-5 ">
-          <textarea
-            name="floating_first_name"
-            id="floating_first_name"
-            onChange={(e) => setContent(e.target.value)}
-            value={content}
-            className="block py-2.5 px-0 h-96 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-            placeholder=" "
-          />
-          <label
-            for="floating_first_name"
-            className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-          >
-            Content
-          </label>
-        </div>
-        <button
-          type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Submit
-        </button>
+        {!loading ? (
+          <>
+            <div className="relative z-0 w-full mb-5 group mt-5 ">
+              <textarea
+                name="floating_first_name"
+                id="floating_first_name"
+                onChange={(e) => setContent(e.target.value)}
+                value={content}
+                className="block py-2.5 px-0 h-96 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                placeholder=" "
+              />
+              <label
+                for="floating_first_name"
+                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+              >
+                Content
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Submit
+            </button>
+          </>
+        ) : (
+          <Spinner />
+        )}
       </form>
     </div>
   );
