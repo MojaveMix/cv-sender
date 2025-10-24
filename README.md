@@ -59,22 +59,22 @@ npm install
 
 node backend/app.js
 
-# 🧠 Future Enhancements
+## 🧠 Future Enhancements
 
-# 🪄 Add AI-based resume tailoring per job offer
+## 🪄 Add AI-based resume tailoring per job offer
 
-# 💼 Auto-apply integration with LinkedIn or Indeed
+## 💼 Auto-apply integration with LinkedIn or Indeed
 
-# 📊 Dashboard for tracking applications
+## 📊 Dashboard for tracking applications
 
-# 📄 License
+## 📄 License
 
 🧑‍💻 Author
 
-# Badr Moujahid
+## Badr Moujahid
 
-# Full-Stack & Cybersecurity Engineer Student
+## Full-Stack & Cybersecurity Engineer Student
 
-# MIT © 2025 [Badar Moujahid](https://badr-moujahid.netlify.app/)
+MIT © 2025 [Badar Moujahid](https://badr-moujahid.netlify.app/)
 
-# [LinkedIn](https://www.linkedin.com/in/badr-moujahid-54a118286/) [GitHub](https://github.com/MojaveMix)
+[LinkedIn](https://www.linkedin.com/in/badr-moujahid-54a118286/) [GitHub](https://github.com/MojaveMix)
