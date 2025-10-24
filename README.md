@@ -32,18 +32,18 @@ It helps you automatically **generate personalized AI cover letters**, **extract
 
 ## 🧩 Folder Structure
 
+````bash
 happycv/
 ├── backend/
-│ ├── server.js
-│ ├── routes/
-│ └── utils/
+│   ├── server.js
+│   ├── routes/
+│   └── utils/
 ├── extension/
-│ ├── popup.html
-│ ├── popup.js
-│ ├── utils/
-│ └── manifest.json
+│   ├── popup.html
+│   ├── popup.js
+│   ├── utils/
+│   └── manifest.json
 └── README.md
-
 ---
 
 ## ⚙️ Installation
@@ -53,7 +53,7 @@ happycv/
    ```bash
    git clone https://github.com/MojaveMix/happycv
    cd happycv
-   ```
+````
 
 npm install
 
