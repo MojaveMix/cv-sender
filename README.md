@@ -55,8 +55,6 @@ happycv/
    cd happycv
    ```
 
-```
-
 npm install
 
 node backend/app.js
@@ -80,4 +78,3 @@ node backend/app.js
 MIT © 2025 [Badar Moujahid](https://badr-moujahid.netlify.app/)
 
 [LinkedIn](https://www.linkedin.com/in/badr-moujahid-54a118286/) [GitHub](https://github.com/MojaveMix)
-```
